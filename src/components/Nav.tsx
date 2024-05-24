@@ -10,6 +10,9 @@ export default function Nav() {
       ? "border-black"
       : "border-transparent hover:border-gray-300";
 
+  const activeIcon = (path: string) =>
+    path == location.pathname && "bg-cyan-200 rounded-full";
+
   return (
     <nav class="border-b px-2 py-2">
       <div class="flex items-center justify-between mx-auto container">
@@ -62,34 +65,34 @@ export default function Nav() {
             
             Hidden on big screen
           */}
-        <ul class="flex items-center fixed bottom-0 border-t justify-Around w-full p-2 container md:hidden">
+        <ul class="flex items-center fixed bottom-0 border-t justify-around w-full p-2 container md:hidden">
           <li>
             <A href="/">
-              <img src="/home.svg" class="w-6" />
+              <img src="/home.svg" class={`w-6 ${activeIcon("/")}`} />
             </A>
           </li>
 
           <li>
             <A href="/new">
-              <img src="/new.svg" class="w-6" />
+              <img src="/new.svg" class={`w-6 ${activeIcon("/new")}`} />
             </A>
           </li>
 
           <li>
             <A href="/past">
-              <img src="/past.svg" class="w-6" />
+              <img src="/past.svg" class={`w-6 ${activeIcon("/past")}`} />
             </A>
           </li>
 
           <li>
-            <A href="/Ask">
-              <img src="/Ask.svg" class="w-6" />
+            <A href="/ask">
+              <img src="/ask.svg" class={`w-6 ${activeIcon("/ask")}`} />
             </A>
           </li>
 
           <li>
             <A href="/submit">
-              <img src="/submit.svg" class="w-6" />
+              <img src="/submit.svg" class={`w-6 ${activeIcon("/submit")}`} />
             </A>
           </li>
         </ul>
