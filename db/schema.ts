@@ -12,10 +12,10 @@ export const users = pgTable(
   "users",
   {
     id: uuid("id").primaryKey(),
-    firstName: varchar("frist_name", { length: 256 }),
-    lastName: varchar("last_name", { length: 256 }),
-    email: varchar("email", { length: 256 }),
-    image: varchar("image", { length: 256 }),
+    firstName: varchar("frist_name", { length: 256 }).notNull(),
+    lastName: varchar("last_name", { length: 256 }).notNull(),
+    email: varchar("email", { length: 256 }).notNull(),
+    image: varchar("image", { length: 256 }).notNull(),
   },
   (users) => {
     return {

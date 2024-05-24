@@ -7,15 +7,13 @@ import { GOOGLE_OAUTH_CODE_VERIFIER, GOOGLE_OAUTH_STATE, google } from ".";
 import db from "../../../../../db/db";
 import { UserType, users } from "../../../../../db/schema";
 import { eq } from "drizzle-orm";
+import { AUTH_TOKEN, AUTH_USER_DATA } from "~/server-function";
 
 enum CallbackError {
   UserEmailNotVerified,
   GoogleBadVerificationCode,
   InternalServerError,
 }
-
-const AUTH_USER_DATA = "user-data";
-const AUTH_TOKEN = "auth-token";
 
 export async function GET({ request }: APIEvent) {
   const url = new URL(request.url as string);

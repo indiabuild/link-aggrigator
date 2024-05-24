@@ -1,4 +1,5 @@
 import { useLocation } from "@solidjs/router";
+import { A } from "@solidjs/router";
 import User from "./User";
 
 export default function Nav() {
@@ -15,7 +16,7 @@ export default function Nav() {
         {/* 
             Branding: Logo and Icon on the Left Side of Navigation
           */}
-        <a href="/" class="flex items-center gap-2">
+        <A href="/" class="flex items-center gap-2">
           <img
             src="/foi_icon.svg"
             alt="Indian Flag"
@@ -25,7 +26,7 @@ export default function Nav() {
           <span class="text-xs text-blue-700 bg-blue-200 border rounded-xl border-blue-400 px-1 py-0 font-semibold">
             beta
           </span>
-        </a>
+        </A>
 
         {/* 
             Navigations for big Screens: Different pages
@@ -34,25 +35,25 @@ export default function Nav() {
           */}
         <ul class="flex items-center hidden md:flex gap-8">
           <li class={`border-b-2 ${active("/")}`}>
-            <a href="/">Home</a>
+            <A href="/">Home</A>
           </li>
 
           <li class={`border-b-2 ${active("/new")}`}>
-            <a href="/new">New</a>
+            <A href="/new">New</A>
           </li>
 
           <li class={`border-b-2 ${active("/past")}`}>
-            <a href="/past">Past</a>
+            <A href="/past">Past</A>
           </li>
 
-          <li class={`border-b-2 ${active("/ask")}`}>
-            <a href="/ask">Ask</a>
+          <li class={`border-b-2 ${active("/Ask")}`}>
+            <A href="/Ask">Ask</A>
           </li>
-          {/* <li class={`border-b-2 ${active("/comments")}`}>
-            <a href="/comments">Comments</a>
+          {/* <li class={`border-b-2 ${Active("/comments")}`}>
+            <A href="/comments">Comments</A>
           </li> */}
           <li class={`border-b-2 ${active("/submit")}`}>
-            <a href="/submit">Submit</a>
+            <A href="/submit">Submit</A>
           </li>
         </ul>
 
@@ -61,35 +62,35 @@ export default function Nav() {
             
             Hidden on big screen
           */}
-        <ul class="flex items-center fixed bottom-0 border-t justify-around w-full p-2 container md:hidden">
+        <ul class="flex items-center fixed bottom-0 border-t justify-Around w-full p-2 container md:hidden">
           <li>
-            <a href="/">
+            <A href="/">
               <img src="/home.svg" class="w-6" />
-            </a>
+            </A>
           </li>
 
           <li>
-            <a href="/new">
+            <A href="/new">
               <img src="/new.svg" class="w-6" />
-            </a>
+            </A>
           </li>
 
           <li>
-            <a href="/past">
+            <A href="/past">
               <img src="/past.svg" class="w-6" />
-            </a>
+            </A>
           </li>
 
           <li>
-            <a href="/ask">
-              <img src="/ask.svg" class="w-6" />
-            </a>
+            <A href="/Ask">
+              <img src="/Ask.svg" class="w-6" />
+            </A>
           </li>
 
           <li>
-            <a href="/submit">
+            <A href="/submit">
               <img src="/submit.svg" class="w-6" />
-            </a>
+            </A>
           </li>
         </ul>
 
