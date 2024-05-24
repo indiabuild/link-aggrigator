@@ -1,7 +1,10 @@
 import { OAuth2RequestError } from "arctic";
+import { uuidv7 } from "uuidv7";
 import type { APIEvent } from "@solidjs/start/server";
 import { getCookie } from "vinxi/http";
 import { GOOGLE_OAUTH_CODE_VERIFIER, GOOGLE_OAUTH_STATE, google } from ".";
+import db from "../../../../../db/db";
+import { users } from "../../../../../db/schema";
 
 enum CallbackError {
   UserEmailNotVerified,
@@ -22,7 +25,7 @@ export async function GET({ request }: APIEvent) {
   let error: CallbackError | null = null;
 
   if (!code || !state || !storedState || !storedCode || state !== storedState) {
-    // TODO: show error
+    console.log("Failed: state is not matching");
     return Response.redirect(baseURL);
   }
 
@@ -46,8 +49,13 @@ export async function GET({ request }: APIEvent) {
         error = CallbackError.UserEmailNotVerified;
       }
 
-      console.log(user);
-      // work with user
+      await db.insert(users).values({
+        id: uuidv7(),
+        firstName: user["given_name"],
+        lastName: user["family_name"],
+        email: user["email"],
+        image: user["picture"],
+      });
     }
   } catch (e) {
     console.log(e);
