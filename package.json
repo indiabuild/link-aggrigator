@@ -17,6 +17,7 @@
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.10",
     "env": "link:@solidjs/start/env",
+    "jsonwebtoken": "^9.0.2",
     "postcss": "^8.4.38",
     "postgres": "^3.4.4",
     "solid-js": "^1.8.17",
@@ -28,6 +29,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
     "drizzle-kit": "^0.21.4",
     "tsx": "^4.11.0"
   }

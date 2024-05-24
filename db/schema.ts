@@ -23,3 +23,5 @@ export const users = pgTable(
     };
   }
 );
+
+export type UserType = typeof users.$inferInsert;

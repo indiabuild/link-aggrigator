@@ -4,6 +4,7 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import { getConnString } from "./conn";
 
 const client = postgres(getConnString(), {
+  ssl: process.env.NODE_ENV === "production",
   max: 1,
 });
 

@@ -1,16 +1,21 @@
 import { OAuth2RequestError } from "arctic";
 import { uuidv7 } from "uuidv7";
+import jwt from "jsonwebtoken";
 import type { APIEvent } from "@solidjs/start/server";
-import { getCookie } from "vinxi/http";
+import { getCookie, setCookie } from "vinxi/http";
 import { GOOGLE_OAUTH_CODE_VERIFIER, GOOGLE_OAUTH_STATE, google } from ".";
 import db from "../../../../../db/db";
-import { users } from "../../../../../db/schema";
+import { UserType, users } from "../../../../../db/schema";
+import { eq } from "drizzle-orm";
 
 enum CallbackError {
   UserEmailNotVerified,
   GoogleBadVerificationCode,
   InternalServerError,
 }
+
+const AUTH_USER_DATA = "user-data";
+const AUTH_TOKEN = "auth-token";
 
 export async function GET({ request }: APIEvent) {
   const url = new URL(request.url as string);
@@ -47,15 +52,42 @@ export async function GET({ request }: APIEvent) {
 
       if (!user["email_verified"]) {
         error = CallbackError.UserEmailNotVerified;
-      }
+      } else {
+        const newUser: UserType = {
+          id: uuidv7(),
+          firstName: user["given_name"],
+          lastName: user["family_name"],
+          email: user["email"],
+          image: user["picture"],
+        };
 
-      await db.insert(users).values({
-        id: uuidv7(),
-        firstName: user["given_name"],
-        lastName: user["family_name"],
-        email: user["email"],
-        image: user["picture"],
-      });
+        if (!newUser.email) {
+          error = CallbackError.UserEmailNotVerified;
+        }
+
+        const result = await db
+          .select()
+          .from(users)
+          .where(eq(users.email, newUser.email as string));
+
+        if (result.length === 0) {
+          await db.insert(users).values(newUser);
+        }
+
+        const token = jwt.sign(
+          {
+            id: newUser.id,
+            email: newUser.email,
+          },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "60d",
+          }
+        );
+
+        setUserSesssion(AUTH_TOKEN, token);
+        setUserSesssion(AUTH_USER_DATA, JSON.stringify(newUser));
+      }
     }
   } catch (e) {
     console.log(e);
@@ -80,4 +112,14 @@ export async function GET({ request }: APIEvent) {
   }
 
   return Response.redirect(baseURL);
+}
+
+function setUserSesssion(name: string, value: string) {
+  setCookie(name, value, {
+    path: "/",
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    maxAge: 60 * 24 * 60 * 60, // 60 days
+    sameSite: "lax",
+  });
 }
