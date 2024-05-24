@@ -9,7 +9,7 @@ export default function User() {
 
     <button
       type="button"
-      class="py-1 px-4 bg-black rounded-md text-white border hover:bg-black/80"
+      class="py-1 px-4 bg-black rounded-md text-white border hover:bg-black/80 font-semibold text-sm"
     >
       Login
     </button>
