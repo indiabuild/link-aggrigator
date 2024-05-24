@@ -11,8 +11,29 @@ Live: https://indiabuild.tech
 - Solid.js
 - SolidStart
 - TailwindCSS
+- Docker
+- Task (Taskfile.dev)
 
 After cloning
+
+Create a `.env` and `.env.prod` file using
+
+```bash
+cp .example.env .env
+cp .example.env .env.prod
+```
+
+Start Postgres db
+
+```bash
+task db:up
+```
+
+Migrate DB
+
+```bash
+task db:migrate:dev
+```
 
 1. Install the dependencies
 

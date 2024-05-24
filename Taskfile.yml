@@ -23,6 +23,10 @@ tasks:
     cmds:
       - pnpm db:generate
 
-  db:migrate:
+  db:migrate:dev:
     cmds:
-      - pnpm db:migrate
+      - pnpm db:migrate:dev
+
+  db:migrate:prod:
+    cmds:
+      - pnpm db:migrate:prod

@@ -2,14 +2,15 @@ import { config } from "dotenv";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 import { drizzle } from "drizzle-orm/postgres-js";
-import { getConnString } from "./db/conn";
+import { getConnString } from "./conn";
 
 config({
-  path: ".env",
+  path: ".env.prod",
 });
 
 const databaseURL = drizzle(
   postgres(getConnString(), {
+    ssl: true,
     max: 1,
   })
 );

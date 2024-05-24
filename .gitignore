@@ -9,6 +9,7 @@ dist
 # Environment
 .env
 .env*.local
+.env*.prod
 
 # dependencies
 /node_modules
