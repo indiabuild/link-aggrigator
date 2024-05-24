@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "vinxi dev --port 5555",
     "build": "vinxi build",
-    "start": "vinxi start --port 5555"
+    "start": "vinxi start --port 5555",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx ./db/migrate.ts"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
@@ -12,13 +14,20 @@
     "@solidjs/start": "^1.0.0",
     "arctic": "^1.9.0",
     "autoprefixer": "^10.4.19",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.30.10",
     "env": "link:@solidjs/start/env",
     "postcss": "^8.4.38",
+    "postgres": "^3.4.4",
     "solid-js": "^1.8.17",
     "tailwindcss": "^3.4.3",
     "vinxi": "^0.3.11"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.21.4",
+    "tsx": "^4.11.0"
   }
 }

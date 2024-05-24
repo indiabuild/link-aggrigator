@@ -14,3 +14,15 @@ tasks:
       - |
         rm -rf .vimxi
         rm -rf .output
+
+  db:up:
+    cmds:
+      - bash ./scripts/db_up.sh
+
+  db:gen:
+    cmds:
+      - pnpm db:generate
+
+  db:migrate:
+    cmds:
+      - pnpm db:migrate
