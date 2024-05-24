@@ -25,6 +25,7 @@ import "./app.css";
 export default function App() {
   return (
     <Router
+      explicitLinks
       root={(props) => (
         <MetaProvider>
           <Title>IndiaBuild</Title>
