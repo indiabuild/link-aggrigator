@@ -8,3 +8,17 @@ services:
     restart: always
     ports:
       - "5555:5555"
+    depends_on:
+      - postgres
+    env_file:
+      - .env.docker
+
+  postgres:
+    image: "postgres:16-alpine"
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: indiabuild
