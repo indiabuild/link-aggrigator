@@ -16,6 +16,7 @@
 */
 
 import { Router } from "@solidjs/router";
+import { Title, Meta, MetaProvider, Link } from "@solidjs/meta";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 import Nav from "~/components/Nav";
@@ -25,10 +26,21 @@ export default function App() {
   return (
     <Router
       root={(props) => (
-        <>
+        <MetaProvider>
+          <Title>IndiaBuild</Title>
+
+          <Meta
+            property="og:image"
+            content="https://i.imgur.com/sumxqkx.jpeg"
+          />
+          <Meta property="og:image:alt" content="IndiaBuild" />
+          <Meta property="og:image:width" content="1200" />
+          <Meta property="og:image:height" content="600" />
+          <Meta property="og:site_name" content="IndiaBuild" />
+
           <Nav />
           <Suspense>{props.children}</Suspense>
-        </>
+        </MetaProvider>
       )}
     >
       <FileRoutes />

@@ -1,0 +1,16 @@
+version: "3"
+
+tasks:
+  dev:
+    cmds:
+      - pnpm dev
+
+  build:
+    cmds:
+      - pnpm build
+
+  build:clean:
+    cmds:
+      - |
+        rm -rf .vimxi
+        rm -rf .output

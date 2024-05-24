@@ -7,6 +7,7 @@
     "start": "vinxi start --port 5555"
   },
   "dependencies": {
+    "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.13.3",
     "@solidjs/start": "^1.0.0",
     "autoprefixer": "^10.4.19",
