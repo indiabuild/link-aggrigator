@@ -1,0 +1,36 @@
+name: Build docker images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - run: git fetch --force --tags
+
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=latest_tag::$(git describe --tags --abbrev=0)"
+
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.latest_tag }}
+
+      - name: build docker image
+        run: |
+          docker build -t ghcr.io/indiabuild/ibtech:${{ steps.vars.outputs.latest_tag }} .
+
+      - name: push docker image
+        run: |
+          echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u "kunalsin9h" --password-stdin
+
+          docker push ghcr.io/indiabuild/ibtech:${{ steps.vars.outputs.latest_tag }}
