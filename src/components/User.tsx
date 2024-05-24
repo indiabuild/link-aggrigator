@@ -22,7 +22,7 @@ export default function User() {
       <img
         src={user.image}
         alt="Profile Picture"
-        class="w-10 h-10 rounded-full"
+        class="h-8 w-8 md:w-10 md:h-10 rounded-full"
       />
     </div>
   );
