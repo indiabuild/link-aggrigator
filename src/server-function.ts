@@ -4,13 +4,19 @@ import { UserType } from "../db/schema";
 export const AUTH_USER_DATA = "user-data";
 export const AUTH_TOKEN = "auth-token";
 
-export function getUserFromCookie(): UserType {
+export function getUserFromCookie(): UserType | null {
   "use server";
   const user = getCookie(AUTH_USER_DATA);
 
   if (!user) {
-    throw new Error("not user data in cookie");
+    return null;
   }
 
-  return JSON.parse(user);
+  try {
+    const u: UserType = JSON.parse(user);
+    return u;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }

@@ -1,14 +1,7 @@
 import { getUserFromCookie } from "~/server-function";
-import { UserType } from "../../db/schema";
 
 export default function User() {
-  let user: UserType | null = null;
-
-  try {
-    user = getUserFromCookie();
-  } catch (e) {
-    console.log(e);
-  }
+  let user = getUserFromCookie();
 
   if (!user) {
     return (
