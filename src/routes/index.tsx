@@ -1,22 +1,26 @@
+import ContainerInner from "~/components/ContainerInner";
+
 export default function Home() {
   return (
-    <main class="container md:px-32 md:py-8 mx-auto flex gap-2">
-      <div class="flex flex-col gap-8  basis-1/3 pr-24">
-        <Options
-          name="Top Categories"
-          items={["Manufacturing", "AI/ML", "Internet"]}
-          slug="categories"
-        />
-        <Options
-          name="Top Tags"
-          items={["semicundurcot", "python", "linear-regression"]}
-          slug="tags"
-        />
+    <ContainerInner>
+      <div class="flex gap-2">
+        <div class="flex flex-col gap-8  basis-1/3 pr-24">
+          <Options
+            name="Top Categories"
+            items={["Manufacturing", "AI/ML", "Internet"]}
+            slug="categories"
+          />
+          <Options
+            name="Top Tags"
+            items={["semicundurcot", "python", "linear-regression"]}
+            slug="tags"
+          />
+        </div>
+        <div class="basis-2/3">
+          <TopLinks />
+        </div>
       </div>
-      <div class="basis-2/3">
-        <TopLinks />
-      </div>
-    </main>
+    </ContainerInner>
   );
 }
 

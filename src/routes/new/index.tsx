@@ -1,3 +1,9 @@
+import ContainerInner from "~/components/ContainerInner";
+
 export default function New() {
-  return <p>New Post</p>;
+  return (
+    <ContainerInner>
+      <p>New Post</p>
+    </ContainerInner>
+  );
 }
