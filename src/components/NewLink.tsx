@@ -2,12 +2,14 @@ import { Show, createResource, createSignal } from "solid-js";
 import { getUserFromCookie } from "~/server-function";
 import GoogleLogin from "./GoogleLogin";
 import { Spinner } from "~/icons/Spinner";
+import { redirect } from "@solidjs/router";
 
 export default function NewLink() {
   const [user] = createResource(getUserFromCookie);
   const [clicked, setClicked] = createSignal(false);
   const [url, setURL] = createSignal("");
   const [title, setTitle] = createSignal("");
+  const [error, setError] = createSignal<string>();
 
   return (
     <Show
@@ -21,13 +23,34 @@ export default function NewLink() {
     >
       <form
         class="flex flex-col gap-2 md:w-96 w-full px-4"
-        onsubmit={(e) => {
+        onsubmit={async (e) => {
           e.preventDefault();
           setClicked(true);
 
-          // call api
+          // todo: check if url and title not null
 
-          setClicked(false);
+          // call api
+          try {
+            const res = await fetch("/api/user/submit", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                url: url(),
+                title: title(),
+              }),
+            });
+
+            if (res.status !== 200) {
+              const errorMsg = await res.text();
+              setError(errorMsg);
+            }
+
+            window.location.assign("/new");
+          } catch (e) {
+            console.log(e);
+          }
         }}
       >
         <div>
@@ -65,6 +88,7 @@ export default function NewLink() {
         >
           {clicked() ? <Spinner /> : "Submit"}
         </button>
+        <p class="text-red-500">{error()}</p>
       </form>
     </Show>
   );

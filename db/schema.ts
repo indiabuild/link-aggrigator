@@ -35,7 +35,7 @@ export const links = pgTable("links", {
   userID: uuid("user_id")
     .references(() => users.id)
     .notNull(),
-  votes: integer("votes").default(0).notNull(),
+  votes: integer("votes").default(1).notNull(),
 });
 
 export type UserType = typeof users.$inferSelect;

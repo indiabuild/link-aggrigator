@@ -52,31 +52,30 @@ export async function GET({ request }: APIEvent) {
       if (!user["email_verified"]) {
         error = CallbackError.UserEmailNotVerified;
       } else {
-        const newUser: UserType = {
-          id: uuidv7(),
+        // find if user exists with email
+        const result = await db
+          .select()
+          .from(users)
+          .where(eq(users.email, user["email"]));
+
+        const currentUser: UserType = {
+          id: uuidv7(), // id will be updated later
           firstName: user["given_name"],
           lastName: user["family_name"],
           email: user["email"],
           image: user["picture"],
         };
 
-        if (!newUser.email) {
-          error = CallbackError.UserEmailNotVerified;
-        }
-
-        const result = await db
-          .select()
-          .from(users)
-          .where(eq(users.email, newUser.email as string));
-
         if (result.length === 0) {
-          await db.insert(users).values(newUser);
+          await db.insert(users).values(currentUser);
+        } else {
+          currentUser.id = result[0].id;
         }
 
         const token = jwt.sign(
           {
-            id: newUser.id,
-            email: newUser.email,
+            id: currentUser.id,
+            email: currentUser.email,
           },
           process.env.JWT_SECRET,
           {
@@ -85,7 +84,7 @@ export async function GET({ request }: APIEvent) {
         );
 
         setUserSesssion(AUTH_TOKEN, token);
-        setUserSesssion(AUTH_USER_DATA, JSON.stringify(newUser));
+        setUserSesssion(AUTH_USER_DATA, JSON.stringify(currentUser));
       }
     }
   } catch (e) {
