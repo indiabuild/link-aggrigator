@@ -1,9 +1,12 @@
 import ContainerInner from "~/components/ContainerInner";
+import NewLink from "~/components/NewLink";
 
 export default function New() {
   return (
     <ContainerInner>
-      <p>New Post</p>
+      <div class="flex justify-center">
+        <NewLink />
+      </div>
     </ContainerInner>
   );
 }
