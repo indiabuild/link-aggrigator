@@ -16,7 +16,7 @@ export function getUserFromCookie(): UserType | null {
     const u: UserType = JSON.parse(user);
     return u;
   } catch (e) {
-    console.log(e);
+    console.log("Hello");
     return null;
   }
 }

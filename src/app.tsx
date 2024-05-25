@@ -30,6 +30,8 @@ export default function App() {
         <MetaProvider>
           <Title>IndiaBuild</Title>
 
+          <Meta name="icon" content="/favicon.ico" />
+
           <Meta
             property="og:image"
             content="https://i.imgur.com/sumxqkx.jpeg"

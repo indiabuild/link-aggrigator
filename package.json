@@ -6,8 +6,8 @@
     "build": "vinxi build",
     "start": "vinxi start --port 5555",
     "db:generate": "drizzle-kit generate",
-    "db:migrate:dev": "tsx migrate_dev.ts",
-    "db:migrate:prod": "tsx migrate_prod.ts"
+    "db:migrate:dev": "tsx ./db/migrate_dev.ts",
+    "db:migrate:prod": "tsx ./db/migrate_prod.ts"
   },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
