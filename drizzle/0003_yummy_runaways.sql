@@ -1,0 +1,1 @@
+ALTER TABLE "links" ALTER COLUMN "votes" SET DEFAULT 1;
