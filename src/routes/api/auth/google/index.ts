@@ -1,5 +1,6 @@
 import { generateState, generateCodeVerifier, Google } from "arctic";
 import { setCookie } from "vinxi/http";
+import { redirect } from "@solidjs/router";
 
 const google = new Google(
   process.env.GOOGLE_CLIENT_ID,
@@ -21,7 +22,7 @@ export async function GET() {
   setStateAndCodeCookies(GOOGLE_OAUTH_STATE, state);
   setStateAndCodeCookies(GOOGLE_OAUTH_CODE_VERIFIER, codeVerify);
 
-  return Response.redirect(url.toString());
+  return redirect(url.toString());
 }
 
 function setStateAndCodeCookies(name: string, value: string) {

@@ -8,6 +8,7 @@ import db from "../../../../../db/db";
 import { UserType, users } from "../../../../../db/schema";
 import { eq } from "drizzle-orm";
 import { AUTH_TOKEN, AUTH_USER_DATA } from "~/server-function";
+import { redirect } from "@solidjs/router";
 
 enum CallbackError {
   UserEmailNotVerified,
@@ -29,7 +30,7 @@ export async function GET({ request }: APIEvent) {
 
   if (!code || !state || !storedState || !storedCode || state !== storedState) {
     console.log("Failed: state is not matching");
-    return Response.redirect(baseURL);
+    return redirect(baseURL);
   }
 
   try {
@@ -109,7 +110,7 @@ export async function GET({ request }: APIEvent) {
     // flashmessage
   }
 
-  return Response.redirect(baseURL);
+  return redirect(baseURL);
 }
 
 function setUserSesssion(name: string, value: string) {
