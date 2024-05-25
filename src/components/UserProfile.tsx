@@ -9,7 +9,7 @@ export default function UserProfile({ user }: { user: UserType }) {
         class="h-8 w-8 md:w-10 md:h-10 rounded-full"
       />
 
-      <div class="hidden group-hover:block absolute top-8 right-8 shadow-xl border rounded-lg bg-white text-sm p-2">
+      <div class="hidden group-hover:block absolute top-4 right-4 shadow-xl border rounded-lg bg-white text-sm p-2">
         <p class="font-bold">
           {user.firstName} {user.lastName}
         </p>
@@ -20,9 +20,9 @@ export default function UserProfile({ user }: { user: UserType }) {
         <button
           class="w-full mx-auto my-1 flex items-center gap-2 text-md justify-center hover:underline underline-offset-4"
           onClick={async () => {
-            "use client";
             try {
               await fetch("/api/auth/logout");
+              window.location.reload();
             } catch (e) {
               console.log(e);
             }
