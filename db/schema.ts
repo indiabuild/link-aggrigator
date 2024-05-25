@@ -16,7 +16,7 @@ export const users = pgTable(
   {
     id: uuid("id").primaryKey(),
     firstName: varchar("frist_name", { length: 256 }).notNull(),
-    lastName: varchar("last_name", { length: 256 }).notNull(),
+    lastName: varchar("last_name", { length: 256 }),
     email: varchar("email", { length: 256 }).notNull(),
     image: varchar("image", { length: 256 }).notNull(),
   },
