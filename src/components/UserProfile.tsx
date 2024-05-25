@@ -34,7 +34,7 @@ export default function UserProfile({ user }: { user: UserType }) {
             }
           }}
         >
-          <Show when={clicked()} fallback={<p>Loading</p>}>
+          <Show when={clicked()} fallback={<p>Logout</p>}>
             <Spinner />
           </Show>
         </button>

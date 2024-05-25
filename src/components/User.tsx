@@ -1,20 +1,14 @@
-import { Show, createSignal, onMount } from "solid-js";
+import { Show, createResource } from "solid-js";
 import { UserType } from "../../db/schema";
 import { getUserFromCookie } from "~/server-function";
 import UserProfile from "./UserProfile";
 
 export default function User() {
-  const [user, setUser] = createSignal<UserType | null>(null);
-
-  onMount(async () => {
-    const u = getUserFromCookie();
-    // in client this is promise thats why await
-    setUser(await u);
-  });
+  const [data] = createResource(getUserFromCookie);
 
   return (
     <Show
-      when={user()}
+      when={data()}
       fallback={
         <a href="/api/auth/google">
           <button
@@ -27,7 +21,7 @@ export default function User() {
         </a>
       }
     >
-      <UserProfile user={user() as UserType} />
+      <UserProfile user={data() as UserType} />
     </Show>
   );
 }

@@ -1,6 +1,7 @@
 import { useLocation } from "@solidjs/router";
 import { A } from "@solidjs/router";
 import User from "./User";
+import { Suspense } from "solid-js";
 
 export default function Nav() {
   const location = useLocation();
@@ -72,7 +73,7 @@ export default function Nav() {
             
             Hidden on big screen
           */}
-      <ul class="flex px-2 py-3 items-center fixed bottom-0 border-t justify-around w-full container md:hidden">
+      <ul class="flex px-2 py-3 items-center fixed bottom-0 border-t justify-around w-full container md:hidden bg-white">
         <li>
           <A href="/">
             <img src="/home.svg" class={`w-6 ${activeIcon("/")}`} />
