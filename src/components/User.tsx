@@ -8,7 +8,7 @@ export default function User() {
 
   onMount(async () => {
     const u = getUserFromCookie();
-    // in clinet this is promise thats why await
+    // in client this is promise thats why await
     setUser(await u);
   });
 
