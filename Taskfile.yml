@@ -12,7 +12,7 @@ tasks:
   build:clean:
     cmds:
       - |
-        rm -rf .vimxi
+        rm -rf .vinxi
         rm -rf .output
 
   db:up:

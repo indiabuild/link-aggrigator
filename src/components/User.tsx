@@ -1,7 +1,7 @@
 import { getUserFromCookie } from "~/server-function";
 
 export default function User() {
-  let user = getUserFromCookie();
+  const user = getUserFromCookie();
 
   if (!user) {
     return (
@@ -18,13 +18,15 @@ export default function User() {
   }
 
   return (
-    <div class="relative group cursor-pointer p-2">
+    // <div class="relative group cursor-pointer p-2">
+    <div>
       <img
         src={user.image}
         alt="Profile Picture"
         class="h-8 w-8 md:w-10 md:h-10 rounded-full"
       />
 
+      {/* 
       <div class="hidden group-hover:block absolute top-8 right-8 px-2 py-1 shadow-xl border rounded-lg bg-white text-sm">
         <p class="font-bold">
           {user.firstName} {user.lastName}
@@ -36,7 +38,7 @@ export default function User() {
         <button class="w-full mx-auto my-1 flex items-center gap-2 text-md justify-center hover:underline underline-offset-4">
           Logout
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

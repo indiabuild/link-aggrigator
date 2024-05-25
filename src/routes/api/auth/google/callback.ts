@@ -17,7 +17,7 @@ enum CallbackError {
 
 export async function GET({ request }: APIEvent) {
   const url = new URL(request.url as string);
-  const baseURL = url.origin;
+  const baseURL = process.env.APP_HOST;
 
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
