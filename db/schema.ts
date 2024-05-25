@@ -1,10 +1,13 @@
 import {
+  integer,
   pgEnum,
   pgTable,
+  text,
   uniqueIndex,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+import { BigInt } from "postgres";
 
 export const categories = pgEnum("categories", ["manufacturing", "research"]);
 
@@ -24,4 +27,16 @@ export const users = pgTable(
   }
 );
 
-export type UserType = typeof users.$inferInsert;
+export const links = pgTable("links", {
+  id: uuid("id").primaryKey(),
+  url: text("url").notNull(),
+  title: text("title").notNull(),
+  host: varchar("host", { length: 325 }).notNull(),
+  userID: uuid("user_id")
+    .references(() => users.id)
+    .notNull(),
+  votes: integer("votes").default(0).notNull(),
+});
+
+export type UserType = typeof users.$inferSelect;
+export type LinkType = typeof links.$inferSelect;

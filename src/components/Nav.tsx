@@ -26,8 +26,8 @@ export default function Nav() {
             class="w-8 h-8 md:w-10 md:h-10"
           />
           <p class="text-md md:text-xl font-bold tracking-wide">IndiaBuild</p>
-          <span class="text-xs text-blue-700 bg-blue-200 border rounded-xl border-blue-400 px-1 py-0 font-semibold">
-            beta
+          <span class="text-xs text-purple-700 bg-purple-200 border rounded-xl border-purple-400 px-1 py-0 font-semibold">
+            dev release
           </span>
         </A>
 
