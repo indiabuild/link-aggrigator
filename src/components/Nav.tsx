@@ -43,6 +43,7 @@ export default function Nav() {
               <A href="/">Home</A>
             </li>
 
+            {/* <a /> here is for a reason: when hittig /new cached values are retured */}
             <li class={`border-b-2 ${active("/new")}`}>
               <A href="/new">New</A>
             </li>
