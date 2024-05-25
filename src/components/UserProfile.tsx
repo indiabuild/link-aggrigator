@@ -1,6 +1,11 @@
+import { createSignal } from "solid-js";
 import { UserType } from "../../db/schema";
+import { Show } from "solid-js";
+import { Spinner } from "~/icons/Spinner";
 
 export default function UserProfile({ user }: { user: UserType }) {
+  const [clicked, setClicked] = createSignal(false);
+
   return (
     <div class="relative group cursor-pointer">
       <img
@@ -20,6 +25,7 @@ export default function UserProfile({ user }: { user: UserType }) {
         <button
           class="w-full mx-auto my-1 flex items-center gap-2 text-md justify-center hover:underline underline-offset-4"
           onClick={async () => {
+            setClicked(true);
             try {
               await fetch("/api/auth/logout");
               window.location.reload();
@@ -28,7 +34,9 @@ export default function UserProfile({ user }: { user: UserType }) {
             }
           }}
         >
-          Logout
+          <Show when={clicked()} fallback={<p>Loading</p>}>
+            <Spinner />
+          </Show>
         </button>
       </div>
     </div>
