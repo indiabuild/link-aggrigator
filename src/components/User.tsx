@@ -8,7 +8,7 @@ export default function User() {
   const [data] = createResource(getUserFromCookie);
 
   return (
-    <Show when={data()} fallback={<GoogleLogin />}>
+    <Show when={data()} fallback={<GoogleLogin fullName={false} />}>
       <UserProfile user={data() as UserType} />
     </Show>
   );

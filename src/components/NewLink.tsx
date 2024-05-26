@@ -17,7 +17,7 @@ export default function NewLink() {
       fallback={
         <div class="flex flex-col gap-2 items-center">
           <p class="text-xl text-gray-600 ">Your are not logged in!</p>
-          <GoogleLogin />
+          <GoogleLogin fullName={true} />
         </div>
       }
     >

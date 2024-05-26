@@ -1,12 +1,14 @@
-export default function GoogleLogin() {
+export default function GoogleLogin(props: { fullName: boolean }) {
   return (
     <a href="/api/auth/google">
       <button
         type="button"
-        class="rounded border p-1 flex items-center text-sm md:gap-2 shadow active:bg-gray-100"
+        class="rounded border p-1 flex items-center text-sm gap-2 shadow active:bg-gray-100"
       >
         <img src="/google.svg" alt="Google Icon" class="h-5 w-5" />
-        <span class="hidden md:block">Sign in with Google</span>
+        <span class={`${props.fullName ? "block" : "hidden"} md:block`}>
+          Sign in with Google
+        </span>
       </button>
     </a>
   );
