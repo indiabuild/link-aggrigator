@@ -42,6 +42,7 @@ export const links = pgTable("links", {
     .references(() => users.id)
     .notNull(),
   views: integer("views").default(1).notNull(),
+  votes: integer("votes").default(1).notNull(),
   createdAt: timestamp("created_at", {
     withTimezone: true,
   }).notNull(),
@@ -51,4 +52,6 @@ export const links = pgTable("links", {
 });
 
 export type UserType = typeof users.$inferInsert;
+export type UserTypeSelect = typeof users.$inferInsert;
 export type LinkType = typeof links.$inferInsert;
+export type LinkTypeSelect = typeof links.$inferSelect;

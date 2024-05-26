@@ -1,0 +1,1 @@
+ALTER TABLE "links" ADD COLUMN "votes" integer DEFAULT 1 NOT NULL;

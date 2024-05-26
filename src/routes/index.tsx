@@ -1,10 +1,15 @@
+import { RouteDefinition, cache, createAsync } from "@solidjs/router";
 import ContainerInner from "~/components/ContainerInner";
+import { LinkTypeSelect, links } from "../../db/schema";
+import db from "../../db/db";
+import { Show, Suspense } from "solid-js";
+import LinkBox from "~/components/LinkBox";
 
 export default function Home() {
   return (
     <ContainerInner>
-      <div class="flex gap-2">
-        <div class="flex flex-col gap-8  basis-1/3 pr-24">
+      <div class="flex flex-col md:flex-row gap-2">
+        <div class="flex flex-col md:gap-8  basis-1/3 md:pr-24 p-2">
           <Options
             name="Top Categories"
             items={["Manufacturing", "AI/ML", "Internet"]}
@@ -34,7 +39,7 @@ function Options({
   items: string[];
 }) {
   return (
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 p-2">
       <p class="font-bold text-xl">{name}</p>
       <ul class="text-sm flex gap-2 flex-wrap ">
         {items.map((i) => (
@@ -61,7 +66,41 @@ function Options({
   );
 }
 
+const fetchData = cache(async () => {
+  "use server";
+
+  try {
+    const result: LinkTypeSelect[] = await db
+      .select()
+      .from(links)
+      .orderBy(links.votes);
+
+    return result;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}, "new-links-data");
+
+export const route = {
+  load: () => fetchData(),
+} satisfies RouteDefinition;
+
 function TopLinks() {
-  const fakeData = [{}];
-  return <p>Top Links</p>;
+  const data = createAsync(() => fetchData());
+  return (
+    <div class="flex justify-center w-full ">
+      <Suspense fallback="Loading...">
+        <Show when={data() && data()?.length !== 0} fallback={<p>No Links</p>}>
+          <ul class="w-full px-4 flex flex-col items-center">
+            {data()?.map((d) => (
+              <li class="mb-4">
+                <LinkBox link={d} />
+              </li>
+            ))}
+          </ul>
+        </Show>
+      </Suspense>
+    </div>
+  );
 }

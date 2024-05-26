@@ -1,5 +1,6 @@
 import { getCookie } from "vinxi/http";
 import { UserType } from "../db/schema";
+import { deleteCookie } from "vinxi/http";
 
 export const AUTH_USER_DATA = "user-data";
 export const AUTH_TOKEN = "auth-token";
@@ -19,4 +20,11 @@ export function getUserFromCookie(): UserType | null {
     console.log(e);
     return null;
   }
+}
+
+export function logout() {
+  "use server";
+
+  deleteCookie(AUTH_TOKEN);
+  deleteCookie(AUTH_USER_DATA);
 }

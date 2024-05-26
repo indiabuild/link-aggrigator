@@ -2,6 +2,7 @@ import { createSignal } from "solid-js";
 import { UserType } from "../../db/schema";
 import { Show } from "solid-js";
 import { Spinner } from "~/icons/Spinner";
+import { logout } from "~/server-function";
 
 export default function UserProfile({ user }: { user: UserType }) {
   const [clicked, setClicked] = createSignal(false);
@@ -26,12 +27,8 @@ export default function UserProfile({ user }: { user: UserType }) {
           class="w-full mx-auto my-1 flex items-center gap-2 text-md justify-center hover:underline underline-offset-4"
           onClick={async () => {
             setClicked(true);
-            try {
-              await fetch("/api/auth/logout");
-              window.location.reload();
-            } catch (e) {
-              console.log(e);
-            }
+            logout();
+            window.location.reload();
           }}
         >
           <Show when={clicked()} fallback={<p>Logout</p>}>
