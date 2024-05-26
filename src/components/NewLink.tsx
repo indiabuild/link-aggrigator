@@ -7,8 +7,6 @@ import { redirect } from "@solidjs/router";
 export default function NewLink() {
   const [user] = createResource(getUserFromCookie);
   const [clicked, setClicked] = createSignal(false);
-  const [url, setURL] = createSignal("");
-  const [title, setTitle] = createSignal("");
   const [error, setError] = createSignal<string>();
 
   return (
@@ -24,11 +22,11 @@ export default function NewLink() {
       >
         <form
           class="flex flex-col gap-2 md:w-96 w-full px-4"
-          onsubmit={async (e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             setClicked(true);
 
-            // todo: check if url and title not null
+            const formData = new FormData(e.currentTarget);
 
             // call api
             try {
@@ -38,19 +36,20 @@ export default function NewLink() {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  url: url(),
-                  title: title(),
+                  url: formData.get("url"),
+                  title: formData.get("title"),
                 }),
               });
 
               if (res.status !== 200) {
                 const errorMsg = await res.text();
                 setError(errorMsg);
+              } else {
+                window.location.assign("/new");
               }
-
-              window.location.assign("/new");
             } catch (e) {
               console.log(e);
+              setError(e as string);
             }
           }}
         >
@@ -65,8 +64,6 @@ export default function NewLink() {
               required
               class="border rounded w-full px-2"
               placeholder="https://punkx.org/rocksolid/"
-              value={url()}
-              onChange={(e) => setURL(e.target.value)}
             />
           </div>
           <div>
@@ -79,8 +76,6 @@ export default function NewLink() {
               required
               class="border rounded w-full px-2"
               placeholder="Rock Solid: egg drop challenge, fastest egg wins."
-              value={title()}
-              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <button
