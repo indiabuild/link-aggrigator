@@ -80,7 +80,7 @@ const fetchData = cache(async () => {
     console.log(e);
     return null;
   }
-}, "new-links-data");
+}, "top-links-data");
 
 export const route = {
   load: () => fetchData(),
@@ -89,7 +89,7 @@ export const route = {
 function TopLinks() {
   const data = createAsync(() => fetchData());
   return (
-    <div class="flex justify-center w-full ">
+    <div class="flex justify-center w-full overflow-y-scroll mb-16">
       <Suspense fallback="Loading...">
         <Show when={data() && data()?.length !== 0} fallback={<p>No Links</p>}>
           <ul class="w-full px-4 flex flex-col items-center">
