@@ -59,3 +59,7 @@ Required
 ```bash
 docker-compose up
 ```
+
+### Reference
+
+- [SolidStart For Newbies](https://vladislav-lipatov.medium.com/solid-start-guide-for-newbies-e1d65212dd07)

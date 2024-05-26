@@ -25,7 +25,7 @@ export default function UserProfile({ user }: { user: UserType }) {
 
         <button
           class="w-full mx-auto my-1 flex items-center gap-2 text-md justify-center hover:underline underline-offset-4"
-          onClick={async () => {
+          onClick={() => {
             setClicked(true);
             logout();
             window.location.reload();

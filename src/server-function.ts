@@ -1,6 +1,9 @@
 import { getCookie } from "vinxi/http";
-import { UserType } from "../db/schema";
+import { UserType, links, users } from "../db/schema";
 import { deleteCookie } from "vinxi/http";
+import { cache } from "@solidjs/router";
+import db from "../db/db";
+import { eq } from "drizzle-orm";
 
 export const AUTH_USER_DATA = "user-data";
 export const AUTH_TOKEN = "auth-token";
@@ -28,3 +31,76 @@ export function logout() {
   deleteCookie(AUTH_TOKEN);
   deleteCookie(AUTH_USER_DATA);
 }
+
+export const viewsData = async (id: string) => {
+  "use server";
+
+  try {
+    const result = await db
+      .select({
+        views: links.views,
+      })
+      .from(links)
+      .where(eq(links.id, id));
+
+    if (result.length === 0 || result.length >= 2) {
+      throw new Error(
+        `${result.length} rows found for views count for id=${id}`
+      );
+    }
+
+    return result[0].views;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
+
+export const votesData = async (id: string) => {
+  "use server";
+
+  try {
+    const result = await db
+      .select({
+        votes: links.votes,
+      })
+      .from(links)
+      .where(eq(links.id, id));
+
+    if (result.length === 0 || result.length >= 2) {
+      throw new Error(
+        `${result.length} rows found for votes count for id=${id}`
+      );
+    }
+
+    return result[0].votes;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
+
+export const userData = async (userId: string) => {
+  "use server";
+
+  try {
+    const result = await db
+      .select({
+        firstName: users.firstName,
+        lastName: users.lastName,
+      })
+      .from(users)
+      .where(eq(users.id, userId));
+
+    if (result.length === 0 || result.length >= 2) {
+      throw new Error(
+        `${result.length} rows found for user data for userid=${userId}`
+      );
+    }
+
+    return result[0];
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
