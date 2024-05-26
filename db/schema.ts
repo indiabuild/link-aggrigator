@@ -3,6 +3,7 @@ import {
   pgEnum,
   pgTable,
   text,
+  timestamp,
   uniqueIndex,
   uuid,
   varchar,
@@ -19,6 +20,8 @@ export const users = pgTable(
     lastName: varchar("last_name", { length: 256 }),
     email: varchar("email", { length: 256 }).notNull(),
     image: varchar("image", { length: 256 }).notNull(),
+    createdAt: timestamp("createdAt").notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().notNull(),
   },
   (users) => {
     return {
@@ -35,7 +38,9 @@ export const links = pgTable("links", {
   userID: uuid("user_id")
     .references(() => users.id)
     .notNull(),
-  votes: integer("votes").default(1).notNull(),
+  views: integer("views").default(1).notNull(),
+  createdAt: timestamp("createdAt").notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
 
 export type UserType = typeof users.$inferSelect;

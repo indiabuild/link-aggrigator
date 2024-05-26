@@ -36,6 +36,27 @@
       "when": 1716665376407,
       "tag": "0004_wise_smiling_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1716705101059,
+      "tag": "0005_blushing_living_tribunal",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1716705423686,
+      "tag": "0006_overrated_zeigeist",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1716705448385,
+      "tag": "0007_living_wrecking_crew",
+      "breakpoints": true
     }
   ]
 }
