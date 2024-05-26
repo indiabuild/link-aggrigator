@@ -2,16 +2,12 @@ import jwt from "jsonwebtoken";
 import { getCookie } from "vinxi/http";
 import { AUTH_TOKEN } from "./server-function";
 
-type SessionSecret = {
-  id: string;
-  email: string;
-  iat: number;
-  exp: number;
-};
-
 export async function getIDFromJWT() {
   "use server";
   const token = getCookie(AUTH_TOKEN);
+
+  // todo: verify that user exits
+  // if not then call /logout
 
   if (!token) {
     return null;

@@ -6,7 +6,7 @@ import { getCookie, setCookie } from "vinxi/http";
 import { GOOGLE_OAUTH_CODE_VERIFIER, GOOGLE_OAUTH_STATE, google } from ".";
 import db from "../../../../../db/db";
 import { UserType, users } from "../../../../../db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { AUTH_TOKEN, AUTH_USER_DATA } from "~/server-function";
 import { redirect } from "@solidjs/router";
 
@@ -64,6 +64,10 @@ export async function GET({ request }: APIEvent) {
           lastName: user["family_name"],
           email: user["email"],
           image: user["picture"],
+          // @ts-expect-error
+          createdAt: sql`now()`,
+          // @ts-expect-error
+          updatedAt: sql`now()`,
         };
 
         if (result.length === 0) {

@@ -3,6 +3,7 @@ import db from "../../../../db/db";
 import { links } from "../../../../db/schema";
 import { uuidv7 } from "uuidv7";
 import { APIEvent } from "@solidjs/start/server";
+import { sql } from "drizzle-orm";
 
 export async function POST({ request }: APIEvent) {
   const id = await getIDFromJWT();
@@ -30,6 +31,8 @@ export async function POST({ request }: APIEvent) {
       title: data.title,
       host: new URL(data.url).host,
       userID: id,
+      createdAt: sql`now()`,
+      updatedAt: sql`now()`,
     });
 
     return new Response("Success", {

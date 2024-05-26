@@ -8,7 +8,6 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import { BigInt } from "postgres";
 
 export const categories = pgEnum("categories", ["manufacturing", "research"]);
 
@@ -20,8 +19,12 @@ export const users = pgTable(
     lastName: varchar("last_name", { length: 256 }),
     email: varchar("email", { length: 256 }).notNull(),
     image: varchar("image", { length: 256 }).notNull(),
-    createdAt: timestamp("createdAt").notNull(),
-    updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+    createdAt: timestamp("created_at", {
+      withTimezone: true,
+    }).notNull(),
+    updatedAt: timestamp("updated_at", {
+      withTimezone: true,
+    }).notNull(),
   },
   (users) => {
     return {
@@ -39,9 +42,13 @@ export const links = pgTable("links", {
     .references(() => users.id)
     .notNull(),
   views: integer("views").default(1).notNull(),
-  createdAt: timestamp("createdAt").notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+  createdAt: timestamp("created_at", {
+    withTimezone: true,
+  }).notNull(),
+  updatedAt: timestamp("updated_at", {
+    withTimezone: true,
+  }).notNull(),
 });
 
-export type UserType = typeof users.$inferSelect;
-export type LinkType = typeof links.$inferSelect;
+export type UserType = typeof users.$inferInsert;
+export type LinkType = typeof links.$inferInsert;

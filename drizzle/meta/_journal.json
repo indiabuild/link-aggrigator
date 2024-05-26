@@ -5,57 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1716549886184,
-      "tag": "0000_normal_midnight",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1716635726193,
-      "tag": "0001_thankful_veda",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1716635847208,
-      "tag": "0002_ancient_pixie",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1716664518423,
-      "tag": "0003_yummy_runaways",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1716665376407,
-      "tag": "0004_wise_smiling_tiger",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "6",
-      "when": 1716705101059,
-      "tag": "0005_blushing_living_tribunal",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "6",
-      "when": 1716705423686,
-      "tag": "0006_overrated_zeigeist",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "6",
-      "when": 1716705448385,
-      "tag": "0007_living_wrecking_crew",
+      "when": 1716709169949,
+      "tag": "0000_superb_taskmaster",
       "breakpoints": true
     }
   ]
