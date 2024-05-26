@@ -31,7 +31,7 @@ export default function NewLinks() {
 
   return (
     <ContainerInner>
-      <div class="flex justify-center w-full ">
+      <div class="flex justify-center w-full overflow-auto mb-16">
         <Suspense fallback="Loading...">
           <Show
             when={data() && data()?.length !== 0}
@@ -40,7 +40,7 @@ export default function NewLinks() {
             <ul class="w-full px-4 flex flex-col items-center">
               {data()?.map((d) => (
                 <li class="mb-4">
-                  <LinkBox link={d} />
+                  <LinkBox link={d} userId={d.userID} />
                 </li>
               ))}
             </ul>

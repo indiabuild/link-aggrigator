@@ -16,7 +16,7 @@ export default function Nav() {
 
   return (
     <nav>
-      <div class="border-b px-2 py-3">
+      <div class="border-b px-2 py-3 shadow bg-gray-100">
         <div class="relative flex items-center justify-between mx-auto container">
           {/* 
             Branding: Logo and Icon on the Left Side of Navigation
@@ -74,7 +74,7 @@ export default function Nav() {
             
             Hidden on big screen
           */}
-      <ul class="flex px-2 py-3 items-center fixed bottom-0 border-t justify-around w-full container md:hidden bg-white">
+      <ul class="flex px-2 py-3 items-center fixed bottom-0 border-t justify-around w-full container md:hidden bg-gray-100">
         <li>
           <A href="/">
             <img src="/home.svg" class={`w-6 ${activeIcon("/")}`} />
