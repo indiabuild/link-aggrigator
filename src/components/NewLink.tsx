@@ -2,6 +2,10 @@ import { Show, Suspense, createResource, createSignal } from "solid-js";
 import { getUserFromCookie } from "~/server-function";
 import GoogleLogin from "./GoogleLogin";
 import { Spinner } from "~/icons/Spinner";
+import db from "../../db/db";
+import { links } from "../../db/schema";
+import { uuidv7 } from "uuidv7";
+import { sql } from "drizzle-orm";
 
 export default function NewLink() {
   const [user] = createResource(getUserFromCookie);
@@ -21,34 +25,26 @@ export default function NewLink() {
       <form
         class="flex flex-col gap-2 md:w-96 w-full px-4"
         onSubmit={async (e) => {
+          if (!user()) return;
           e.preventDefault();
           setClicked(true);
 
           const formData = new FormData(e.currentTarget);
 
-          // call api
           try {
-            const res = await fetch("/api/user/submit", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                url: formData.get("url"),
-                title: formData.get("title"),
-              }),
-            });
-
-            if (res.status !== 200) {
-              const errorMsg = await res.text();
-              setError(errorMsg);
-            } else {
-              window.location.assign("/new");
-            }
+            await addNewLink(
+              formData.get("url")?.toString() as string,
+              formData.get("title")?.toString() as string,
+              // @ts-expect-error
+              user().id,
+              // @ts-expect-error
+              `${user().firstName} ${user().lastName}`
+            );
           } catch (e) {
-            console.log(e);
             setError(e as string);
           }
+
+          window.location.assign("/new");
         }}
       >
         <div>
@@ -86,4 +82,24 @@ export default function NewLink() {
       </form>
     </Show>
   );
+}
+
+async function addNewLink(
+  url: string,
+  title: string,
+  userID: string,
+  userName: string
+) {
+  "use server";
+
+  await db.insert(links).values({
+    id: uuidv7(),
+    url,
+    title,
+    host: new URL(url).host,
+    userID,
+    userName,
+    createdAt: sql`now()`,
+    updatedAt: sql`now()`,
+  });
 }

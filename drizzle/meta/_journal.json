@@ -15,6 +15,20 @@
       "when": 1716712689909,
       "tag": "0001_amazing_rawhide_kid",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1716892128423,
+      "tag": "0002_low_sinister_six",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1716894631934,
+      "tag": "0003_massive_hydra",
+      "breakpoints": true
     }
   ]
 }

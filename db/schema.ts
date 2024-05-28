@@ -41,12 +41,27 @@ export const links = pgTable("links", {
   userID: uuid("user_id")
     .references(() => users.id)
     .notNull(),
-  views: integer("views").default(1).notNull(),
-  votes: integer("votes").default(1).notNull(),
+  userName: text("user_name").notNull(),
+  views: integer("views").default(0).notNull(),
+  votes: integer("votes").default(0).notNull(),
   createdAt: timestamp("created_at", {
     withTimezone: true,
   }).notNull(),
   updatedAt: timestamp("updated_at", {
+    withTimezone: true,
+  }).notNull(),
+});
+
+export const userUpvoteLink = pgTable("user_upvote_link", {
+  userID: uuid("user_id")
+    .references(() => users.id)
+    .notNull(),
+
+  linkID: uuid("link_id")
+    .references(() => links.id)
+    .notNull(),
+
+  createdAt: timestamp("created_at", {
     withTimezone: true,
   }).notNull(),
 });
