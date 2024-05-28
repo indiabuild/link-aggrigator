@@ -21,6 +21,24 @@ export default function Home() {
             items={["semicundurcot", "python", "linear-regression"]}
             slug="tags"
           />
+          <div class="hidden md:block">
+            <img
+              src="/banner.webp"
+              alt="IndiaBuild Banner"
+              class="rounded shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
+            />
+            <div class="flex gap-4 mt-4">
+              <a href="http://indiabuild.tech/discord">
+                <img src="/discord.svg" alt="discord logo" width={40} />
+              </a>
+              <a href="http://indiabuild.tech/twitter">
+                <img src="/twitter.png" alt="Twitter logo" width={35} />
+              </a>
+              <a href="https://github.com/indiabuild">
+                <img src="/github.svg" alt="Github logo" width={35} />
+              </a>
+            </div>
+          </div>
         </div>
         <div class="basis-2/3">
           <TopLinks />
