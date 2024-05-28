@@ -1,8 +1,9 @@
-import { UpVote } from "~/icons/Spinner";
+import { UpVote, UpVoteGreen } from "~/icons/Spinner";
 import { LinkTypeSelect, links } from "../../db/schema";
-import { createResource, onMount } from "solid-js";
+import { viewsVotesData } from "~/server-function";
+import { createAsync } from "@solidjs/router";
+import { createEffect, createSignal } from "solid-js";
 import db from "../../db/db";
-import { userData, viewsData, votesData } from "~/server-function";
 import { eq } from "drizzle-orm";
 
 export default function LinkBox({
@@ -12,17 +13,15 @@ export default function LinkBox({
   link: LinkTypeSelect;
   userId?: string;
 }) {
-  const [views, { refetch: viewsRefetch }] = createResource(
-    () => link.id,
-    viewsData
-  );
+  const [views, setViews] = createSignal<number>();
+  const [upVote, setupVote] = createSignal(false);
+  const [votes, setVotes] = createSignal<number>();
+  const data = createAsync(() => viewsVotesData(link.id));
 
-  const [votes, { refetch: votesRefetch }] = createResource(
-    () => link.id,
-    votesData
-  );
-
-  const [user] = createResource(() => userId, userData);
+  createEffect(() => {
+    setViews(data()?.views);
+    setVotes(data()?.votes);
+  });
 
   return (
     <div class="border p-2 lg:p-4 md:w-[42rem] rounded-md bg-gray-100 shadow flex flex-col md:flex-row justify-between items-end md:items-center gap-2 md:gap-6">
@@ -31,19 +30,15 @@ export default function LinkBox({
           target="_black"
           href={link.url}
           class="hover:underline underline-offset-4 font-semibold text-sm md:text-lg visited:text-gray-500 "
-          onClick={async () => {
-            await incrementViews(link.id);
-            await viewsRefetch();
-          }}
+          // @ts-expect-error
+          onClick={() => setViews((v) => v + 1)}
         >
           {link.title}
         </a>
         <div class="text-xs text-gray-400 flex gap-1 md:gap-4 flex-wrap">
           <span>{link.host}</span>
           <span>•</span>
-          <span>
-            by {user()?.firstName} {user()?.lastName}
-          </span>
+          <span>by User</span>
           <span>•</span>
           <span>on {link.createdAt.toDateString()}</span>
           <span>•</span>
@@ -53,12 +48,28 @@ export default function LinkBox({
       <button
         class="group flex flex-col items-center justify-center cursor-pointer text-sm"
         onClick={async () => {
-          await incrementVotes(link.id);
-          await votesRefetch();
+          const alreadyUpVoted = upVote();
+          setupVote((u) => !u);
+
+          if (alreadyUpVoted) {
+            // @ts-expect-error
+            setVotes((v) => v - 1);
+            await decrVotes(link.id);
+          } else {
+            // @ts-expect-error
+            setVotes((v) => v + 1);
+            await incrementVotes(link.id);
+          }
         }}
       >
-        <UpVote />
-        <p class="text-xs">{votes()}</p>
+        {upVote() ? <UpVoteGreen /> : <UpVote />}
+        <p
+          class={`text-xs ${
+            upVote() ? "text-green-500 font-bold" : "text-black"
+          }`}
+        >
+          {votes()}
+        </p>
       </button>
     </div>
   );
@@ -79,6 +90,28 @@ async function incrementVotes(id: string) {
       .update(links)
       .set({
         votes: currentVotes[0].votes + 1,
+      })
+      .where(eq(links.id, id));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function decrVotes(id: string) {
+  "use server";
+
+  try {
+    const currentVotes = await db
+      .select({
+        votes: links.votes,
+      })
+      .from(links)
+      .where(eq(links.id, id));
+
+    await db
+      .update(links)
+      .set({
+        votes: currentVotes[0].votes - 1,
       })
       .where(eq(links.id, id));
   } catch (e) {

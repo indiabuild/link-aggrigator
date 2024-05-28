@@ -10,6 +10,7 @@ export const AUTH_TOKEN = "auth-token";
 
 export function getUserFromCookie(): UserType | null {
   "use server";
+
   const user = getCookie(AUTH_USER_DATA);
 
   if (!user) {
@@ -30,55 +31,9 @@ export function logout() {
 
   deleteCookie(AUTH_TOKEN);
   deleteCookie(AUTH_USER_DATA);
+
+  return true;
 }
-
-export const viewsData = async (id: string) => {
-  "use server";
-
-  try {
-    const result = await db
-      .select({
-        views: links.views,
-      })
-      .from(links)
-      .where(eq(links.id, id));
-
-    if (result.length === 0 || result.length >= 2) {
-      throw new Error(
-        `${result.length} rows found for views count for id=${id}`
-      );
-    }
-
-    return result[0].views;
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-};
-
-export const votesData = async (id: string) => {
-  "use server";
-
-  try {
-    const result = await db
-      .select({
-        votes: links.votes,
-      })
-      .from(links)
-      .where(eq(links.id, id));
-
-    if (result.length === 0 || result.length >= 2) {
-      throw new Error(
-        `${result.length} rows found for votes count for id=${id}`
-      );
-    }
-
-    return result[0].votes;
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-};
 
 export const userData = async (userId: string) => {
   "use server";
@@ -104,3 +59,28 @@ export const userData = async (userId: string) => {
     return null;
   }
 };
+
+export const viewsVotesData = cache(async (id: string) => {
+  "use server";
+
+  try {
+    const result = await db
+      .select({
+        views: links.views,
+        votes: links.votes,
+      })
+      .from(links)
+      .where(eq(links.id, id));
+
+    if (result.length == 0) {
+      throw new Error("empty data for link id = " + id);
+    }
+
+    return {
+      views: result[0].views,
+      votes: result[0].votes,
+    };
+  } catch (e) {
+    console.log(e);
+  }
+}, "views-votes-data");
