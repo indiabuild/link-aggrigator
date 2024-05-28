@@ -18,7 +18,7 @@ export default function Home() {
           />
           <Options
             name="Top Tags"
-            items={["semicundurcot", "python", "linear-regression"]}
+            items={["semiconductors", "python", "linear-regression"]}
             slug="tags"
           />
           <div class="hidden md:block">
@@ -28,11 +28,11 @@ export default function Home() {
               class="rounded shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
             />
             <div class="flex gap-4 mt-4">
-              <a href="http://indiabuild.tech/discord">
+              <a href="https://discord.com/invite/indiabuild-building-india-s-future-1069614588133396552">
                 <img src="/discord.svg" alt="discord logo" width={40} />
               </a>
-              <a href="http://indiabuild.tech/twitter">
-                <img src="/twitter.png" alt="Twitter logo" width={35} />
+              <a href="https://x.com/i/communities/1669220055907811330">
+                <img src="/x.png" alt="Twitter logo" width={35} />
               </a>
               <a href="https://github.com/indiabuild">
                 <img src="/github.svg" alt="Github logo" width={35} />
