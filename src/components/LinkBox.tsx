@@ -38,7 +38,7 @@ export default function LinkBox({
   });
 
   return (
-    <div class="border p-2 lg:p-4 md:w-[42rem] rounded-md bg-gray-100 shadow flex flex-col md:flex-row justify-between items-end md:items-center gap-2 md:gap-6">
+    <div class="border p-2 w-[90vw] lg:p-4 md:w-[42rem] rounded-md bg-gray-100 shadow flex flex-col md:flex-row justify-between gap-2 md:gap-6">
       <div class="flex flex-col gap-1 md:gap-2">
         <a
           target="_black"
@@ -57,7 +57,7 @@ export default function LinkBox({
         </div>
       </div>
       <button
-        class={`group flex flex-col items-center justify-center cursor-pointer text-sm ${
+        class={`group flex flex-col items-center justify-center cursor-pointer text-sm  self-end ${
           upVote() === undefined &&
           "pointer-events-none opacity-60 cursor-not-allowed"
         }`}
