@@ -1,0 +1,1 @@
+ALTER TABLE "links" ALTER COLUMN "user_name" DROP DEFAULT;

@@ -31,8 +31,6 @@ export function logout() {
 
   deleteCookie(AUTH_TOKEN);
   deleteCookie(AUTH_USER_DATA);
-
-  return true;
 }
 
 export const userData = async (userId: string) => {

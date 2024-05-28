@@ -58,7 +58,8 @@ export default function LinkBox({
       </div>
       <button
         class={`group flex flex-col items-center justify-center cursor-pointer text-sm ${
-          upVote() === undefined && "disable invisible"
+          upVote() === undefined &&
+          "pointer-events-none opacity-60 cursor-not-allowed"
         }`}
         onClick={async () => {
           if (!currentUser()) return;

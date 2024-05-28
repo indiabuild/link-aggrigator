@@ -29,6 +29,13 @@
       "when": 1716894631934,
       "tag": "0003_massive_hydra",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1716897330232,
+      "tag": "0004_sour_dazzler",
+      "breakpoints": true
     }
   ]
 }
