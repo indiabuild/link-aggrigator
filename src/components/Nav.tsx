@@ -74,7 +74,7 @@ export default function Nav() {
             
             Hidden on big screen
           */}
-      <ul class="flex px-2 py-3 items-center fixed bottom-0 border-t justify-around w-full container md:hidden bg-gray-100">
+      <ul class="flex px-2 py-3 items-center fixed bottom-0 border-t justify-around w-full container md:hidden bg-gray-100 z-10">
         <li>
           <A href="/">
             <img src="/home.svg" class={`w-6 ${activeIcon("/")}`} />
