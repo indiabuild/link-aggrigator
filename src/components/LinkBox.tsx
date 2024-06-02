@@ -44,8 +44,11 @@ export default function LinkBox({
           target="_black"
           href={link.url}
           class="hover:underline underline-offset-4 font-semibold text-sm md:text-lg visited:text-gray-500 "
-          // @ts-expect-error
-          onClick={() => setViews((v) => v + 1)}
+          onClick={async () => {
+            // @ts-expect-error
+            setViews((v) => v + 1);
+            await incrementViews(link.id);
+          }}
         >
           {link.title}
         </a>
